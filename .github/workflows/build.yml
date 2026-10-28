@@ -13,8 +13,10 @@ jobs:
         run: |
           brew install xcodegen
           xcodegen generate
-      - name: App bauen (Simulator, ohne Signatur)
+      - name: Archiv fürs iPhone bauen (ohne Signatur)
         run: |
-          xcodebuild -project TrackMySteps.xcodeproj -target TrackMySteps \
-            -sdk iphonesimulator -configuration Debug \
-            CODE_SIGNING_ALLOWED=NO build
+          xcodebuild archive \
+            -project TrackMySteps.xcodeproj -scheme TrackMySteps \
+            -destination 'generic/platform=iOS' \
+            -archivePath "$RUNNER_TEMP/TrackMySteps.xcarchive" \
+            CODE_SIGNING_ALLOWED=NO
